@@ -1,0 +1,57 @@
+<html>
+<script type='text/javascript'>
+	function initEmbeddedMessaging() {
+		try {
+			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
+
+             window.addEventListener("onEmbeddedMessagingReady", () => 
+        {
+            console.log("Received the onEmbeddedMessagingReady event…");
+
+            // Send token to Salesforce
+    
+            embeddedservice_bootstrap.userVerificationAPI.setIdentityToken
+            ({
+            identityTokenType : "JWT", 
+
+            //identityToken :"{The JWT token key value that we created in Stage 4}"
+            identityToken :"eyJ0eXAiOiJKV1QiLCJraWQiOiIwMDVkTDAwMDAwQkZkdTZRQUQiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJuaXRpc2hAcGVyc29uYWwuY29tIiwiaXNzIjoiUEVSU09OQUwiLCJleHAiOjE3Mzg2OTA0NTZ9.G4BiaIZJZZ1jOq2R-RIi25vepjcxOHo89RScmUe-m5_Xx_gVugkJD3-KzuJnrtJyXpMVzA_r-G3QPiEBxNotRADlZceXafySbENZtf-ulk2wr2Rxi1hETEWOcmShl5wcKMKO7oG_47TSLM_QN9Dkqw04O3J-95kysRRydXfi5bMtfKsOB5IqNK4bFn-l4vlSKFeJeM0PGmQ56xa8fSJiq0fHgI-xwwz9hOaDlfVbKi_koltWgFGhMg-jL1BnHpcSKVXP5O352yERTYybBnnECuHVfw8kzVg2BD41DdJeMtqMUXb9tjo65S7rNr3_KTWAoTZMOsOMOwMyLCNZ3bppTA"
+            });
+        });
+            
+            
+			embeddedservice_bootstrap.init(
+				'00DdL00000GrLoH',
+				'test_ESD',
+				'https://personal710-dev-ed.develop.my.site.com/ESWtestESD1734762868473',
+				{
+					scrt2URL: 'https://personal710-dev-ed.develop.my.salesforce-scrt.com'
+				}
+			);
+		} catch (err) {
+			console.error('Error loading Embedded Messaging: ', err);
+		}
+	};
+    function onUserLogout() {
+        console.log("I am Clicked");
+        embeddedservice_bootstrap.userVerificationAPI
+        .clearSession()
+        .then(() => {
+            // Add actions to run after the session is cleared successfully.
+        })
+        .catch((error) => {
+            // Add actions to run after clearing the session fails.
+        })
+        .finally(() => {
+            // Add actions to run whether the chat client launches
+            // successfully or not.
+        });
+        
+        // Add code to perform any other logout actions.
+    }
+</script>
+    <script type='text/javascript' src='https://personal710-dev-ed.develop.my.site.com/ESWtestESD1734762868473/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+    <body>
+        <button onclick="onUserLogout()">Click Me</button> 
+        </body>
+</html>
